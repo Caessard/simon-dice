@@ -6,16 +6,16 @@ const orange = document.getElementById('naranja')
 const green = document.getElementById('verde')
 
 class Game {
-    construct(){
+    constructor(){
         this.initialize()
     }
 
     initialize(){
-
+        begin_button.classList.add('hide')
     }
 }
 
 
-function beginGame(){
+function beginGame(){    
    var game = new Game()
 }
