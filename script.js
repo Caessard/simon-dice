@@ -5,6 +5,8 @@ const violet = document.getElementById('violeta')
 const orange = document.getElementById('naranja')
 const green = document.getElementById('verde')
 
+const LAST_LEVEL = 10
+
 class Game {
     constructor(){
         this.initialize()
@@ -25,10 +27,11 @@ class Game {
     }
 
     generateSequence(){
-        this.sequence = new Array(10).fill(0).map(n => Math.floor(Math.random() * 4))
+        this.sequence = new Array(LAST_LEVEL).fill(0).map(n => Math.floor(Math.random() * 4))
     }
 
     nextLevel(){
+        this.sublevel = 0
         this.lightningSequence()
         this.addClickEvent()
     }
@@ -43,6 +46,19 @@ class Game {
                 return 'orange'
             case 3:
                 return 'green'
+        }
+    }
+
+    transformColorToNumber(color){
+        switch(color){
+            case 'sky_blue':
+                return 0
+            case 'violet':
+                return 1
+            case 'orange':
+                return 2
+            case 'green':
+                return 3
         }
     }
 
@@ -69,9 +85,25 @@ class Game {
         this.colors.green.addEventListener('click', this.selectColor)
     }
 
-    selectColor(ev){
-        console.log(this)
-        console.log(ev)
+    selectColor(ev){        
+        const nameColor = ev.target.dataset.engcolor
+        const numberColor = transformColorToNumber(nameColor);
+        this.lightningColor(nameColor)
+        
+        if(numberColor === this.sequence[this.sublevel]){
+            this.sublevel++
+            if(this.sublevel === this.level){
+                this.level++
+                //this.deleteClickEvents()
+                if(this.level === (LAST_LEVEL + 1)){
+                    //WIN
+                } else {
+                    this.nextLevel()
+                }
+            }            
+        } else {
+            //LOSE
+        }
     }
 }
 
