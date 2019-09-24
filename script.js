@@ -13,6 +13,7 @@ class Game {
     }
 
     initialize(){
+        this.selectColor = this.selectColor.bind(this)
         begin_button.classList.add('hide')
         this.level = 1
         this.colors = {
@@ -29,6 +30,7 @@ class Game {
 
     nextLevel(){
         this.lightningSequence()
+        this.addClickEvent()
     }
 
     transformNumberToColor(number){
@@ -58,6 +60,18 @@ class Game {
 
     shutdownColor(color){
         this.colors[color].classList.remove('light')
+    }
+
+    addClickEvent() {
+        this.colors.sky_blue.addEventListener('click', this.selectColor)
+        this.colors.violet.addEventListener('click', this.selectColor)
+        this.colors.orange.addEventListener('click', this.selectColor)
+        this.colors.green.addEventListener('click', this.selectColor)
+    }
+
+    selectColor(ev){
+        console.log(this)
+        console.log(ev)
     }
 }
 
