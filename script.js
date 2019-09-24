@@ -1,19 +1,21 @@
-const celeste = document.getElementById('celeste')
-const violeta = document.getElementById('violeta')
-const naranja = document.getElementById('naranja')
-const verde = document.getElementById('verde')
-const btnEmpezar = document.getElementById('btnEmpezar')
+const begin_button = document.getElementById('btnEmpezar')
 
-class Juego {
-    constructor() {
-        this.inicializar()
+const sky_blue = document.getElementById('celeste')
+const violet = document.getElementById('violeta')
+const orange = document.getElementById('naranja')
+const green = document.getElementById('verde')
+
+class Game {
+    construct(){
+        this.initialize()
     }
 
-    inicializar() {
-        btnEmpezar.classList.add('hide')
+    initialize(){
+
     }
 }
 
-function empezarJuego() {
-    var juego = new Juego()
+
+function beginGame(){
+   var game = new Game()
 }
