@@ -45,8 +45,8 @@ class Game {
     }
 
     lightningSequence(){
-        for(var i=0; i < this.level; i++){           
-            var color = this.transformNumberToColor(this.sequence[i])
+        for(let i=0; i < this.level; i++){           
+            const color = this.transformNumberToColor(this.sequence[i])
             setTimeout(() => this.lightningColor(color), 1000 * i)
         }
     }
