@@ -8,14 +8,15 @@ const green = document.getElementById('verde')
 const LAST_LEVEL = 10
 
 class Game {
-    constructor(){
+    constructor(){        
         this.initialize()
         this.generateSequence()
-        this.nextLevel()
+        setTimeout(this.nextLevel, 500)
     }
 
     initialize(){
         this.selectColor = this.selectColor.bind(this)
+        this.nextLevel = this.nextLevel.bind(this)
         begin_button.classList.add('hide')
         this.level = 1
         this.colors = {
@@ -85,20 +86,28 @@ class Game {
         this.colors.green.addEventListener('click', this.selectColor)
     }
 
+    removeClickEvents(){
+        this.colors.sky_blue.removeEventListener('click', this.selectColor)
+        this.colors.violet.removeEventListener('click', this.selectColor)
+        this.colors.orange.removeEventListener('click', this.selectColor)
+        this.colors.green.removeEventListener('click', this.selectColor)
+    }
+
+
     selectColor(ev){        
         const nameColor = ev.target.dataset.engcolor
-        const numberColor = transformColorToNumber(nameColor);
+        const numberColor = this.transformColorToNumber(nameColor);
         this.lightningColor(nameColor)
         
         if(numberColor === this.sequence[this.sublevel]){
             this.sublevel++
             if(this.sublevel === this.level){
                 this.level++
-                //this.deleteClickEvents()
+                this.removeClickEvents()
                 if(this.level === (LAST_LEVEL + 1)){
                     //WIN
                 } else {
-                    this.nextLevel()
+                    setTimeout(this.nextLevel, 1500)
                 }
             }            
         } else {
