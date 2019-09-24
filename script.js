@@ -9,6 +9,7 @@ class Game {
     constructor(){
         this.initialize()
         this.generateSequence()
+        this.nextLevel()
     }
 
     initialize(){
@@ -24,6 +25,39 @@ class Game {
 
     generateSequence(){
         this.sequence = new Array(10).fill(0).map(n => Math.floor(Math.random() * 4))
+    }
+
+    nextLevel(){
+        this.lightningSequence()
+    }
+
+    transformNumberToColor(number){
+        switch(number){
+            case 0:
+                return 'sky_blue'
+            case 1:
+                return 'violet'
+            case 2:
+                return 'orange'
+            case 3:
+                return 'green'
+        }
+    }
+
+    lightningSequence(){
+        for(var i=0; i < this.level; i++){           
+            var color = this.transformNumberToColor(this.sequence[i])
+            setTimeout(() => this.lightningColor(color), 1000 * i)
+        }
+    }
+
+    lightningColor(color){        
+        this.colors[color].classList.add('light')
+        setTimeout(()=> this.shutdownColor(color), 350)
+    }
+
+    shutdownColor(color){
+        this.colors[color].classList.remove('light')
     }
 }
 
