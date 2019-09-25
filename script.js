@@ -9,6 +9,7 @@ const LAST_LEVEL = 10
 
 class Game {
     constructor(){        
+        this.initialize = this.initialize.bind(this)        
         this.initialize()
         this.generateSequence()
         setTimeout(this.nextLevel, 500)
@@ -17,7 +18,7 @@ class Game {
     initialize(){
         this.selectColor = this.selectColor.bind(this)
         this.nextLevel = this.nextLevel.bind(this)
-        begin_button.classList.add('hide')
+        this.toggleBeginButton()        
         this.level = 1
         this.colors = {
             sky_blue,
@@ -25,6 +26,14 @@ class Game {
             orange,
             green
         }
+    }
+
+    toggleBeginButton(){
+        if(begin_button.classList.contains('hide')){
+            begin_button.classList.remove('hide')
+        } else {
+            begin_button.classList.add('hide')
+        }        
     }
 
     generateSequence(){
@@ -105,14 +114,27 @@ class Game {
                 this.level++
                 this.removeClickEvents()
                 if(this.level === (LAST_LEVEL + 1)){
-                    //WIN
+                    this.winGame()
                 } else {
                     setTimeout(this.nextLevel, 1500)
                 }
             }            
         } else {
-            //LOSE
+            this.loseGame()
         }
+    }
+
+    winGame(){
+        swal('Curso de Javascript - Simón Dice','Felicitaciones ganaste el juego!', 'success')
+            .then(this.initialize)
+    }
+
+    loseGame(){
+        swal('Curso de Javascript - Simón Dice','Lo lamentamos, perdiste :(', 'error')
+        .then(() => {
+            this.removeClickEvents()
+            this.initialize()
+        })
     }
 }
 
